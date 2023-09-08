@@ -1,8 +1,9 @@
 import React from 'react'
 import {useSelector} from "react-redux";
-import {Icon} from "../Icons";
-import {secondsToTime} from "../utils";
+import {Icon} from "../../Icons";
+import {secondsToTime} from "../../utils";
 import CustomRange from "./CustomRange";
+
 
 function FullScreenPlayer({ toggle, state, controls, volumeIcon }) {
 

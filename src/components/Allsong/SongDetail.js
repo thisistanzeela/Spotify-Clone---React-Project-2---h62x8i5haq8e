@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { fetchSongs } from "./SongsApi";
+import { fetchSongs } from "./SongApi";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrent } from "../stores/player";
-import { Icon } from "../Icons";
+import { setCurrent } from "../../stores/player";
+import { Icon } from "../../Icons";
 
-function SongDetail() {
+function SongDetail({ title, limit }) {
   const [allSongs, setAllSongs] = useState([]);
 
-  console.log("allSongs=" + allSongs);
+  // console.log("allSongs=" + allSongs);
   const dispatch = useDispatch();
   const { current, playing, controls } = useSelector((state) => state.player);
 
@@ -15,7 +15,7 @@ function SongDetail() {
     // Fetch all trending songs when the component mounts
     fetchSongs().then((data) => {
       setAllSongs(data);
-      console.log("setAllSongs=" + data);
+    //   console.log("setAllSongs=" + data);
     });
   }, []);
 
@@ -46,15 +46,16 @@ function SongDetail() {
 
   return (
     <div>
-      <h1 className="text-2xl text-white font-semibold tracking-tight hover:underline">
-        Songs
+      <h1 className="text-2xl text-white font-semibold tracking-tight">
+        {title}
       </h1>
 
       <ul className="grid grid-cols-5 gap-4 gap-x-4">
-      {allSongs.map((item) => (
+      {allSongs.slice(0, limit).map((item)  => (
   <div
     key={item.id} // Add this key prop
                 className="bg-footer p-4 rounded hover:bg-active group"
+                style={{ margin: "10px" }}
           >
             <div className="pt-[100%] relative mb-4">
               <img
@@ -78,7 +79,7 @@ function SongDetail() {
             <h6 className="overflow-hidden overflow-ellipsis whitespace-nowrap text-base font-semibold">
               {item.title}
             </h6>
-            <p className="line-clamp-2 text-link text-sm mt-1">{item.name}</p>
+            <p className="line-clamp-2 text-link text-sm mt-1">{item.artist}</p>
           </div>
         ))}
       </ul>

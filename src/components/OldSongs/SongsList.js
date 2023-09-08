@@ -1,21 +1,11 @@
-import React, { useEffect, useState } from "react";
-import { fetchTrendingSongs } from "../components/TrendingApi";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrent } from "../stores/player";
-import { Icon } from "../Icons";
+import { setCurrent } from "../../stores/player";
+import { Icon } from "../../Icons";
 
-function AllTrendingSong() {
-  const [allTrendingSongs, setAllTrendingSongs] = useState([]);
-
+function SongsList({ songs, title }) {
   const dispatch = useDispatch();
   const { current, playing, controls } = useSelector((state) => state.player);
-
-  useEffect(() => {
-    // Fetch all trending songs when the component mounts
-    fetchTrendingSongs().then((data) => {
-      setAllTrendingSongs(data);
-    });
-  }, []);
 
   const imageStyle = (item) => {
     switch (item.type) {
@@ -41,18 +31,17 @@ function AllTrendingSong() {
       dispatch(setCurrent(item));
     }
   };
-
   return (
     <div>
-      <h1 className="text-2xl text-white font-semibold tracking-tight hover:underline">
-        All Trending Songs
+      <h1 className="text-2xl text-white font-semibold tracking-tight"  style={{margin:"20px 0px 30px 0px" ,fontSize:'2rem'}}>
+        {title}
       </h1>
-
       <ul className="grid grid-cols-5 gap-4 gap-x-4">
-        {allTrendingSongs.map((item) => (
+        {songs.map((item) => (
           <div
             key={item.id}
             className="bg-footer p-4 rounded hover:bg-active group"
+            style={{ margin: "10px" }}
           >
             <div className="pt-[100%] relative mb-4">
               <img
@@ -76,7 +65,7 @@ function AllTrendingSong() {
             <h6 className="overflow-hidden overflow-ellipsis whitespace-nowrap text-base font-semibold">
               {item.title}
             </h6>
-            <p className="line-clamp-2 text-link text-sm mt-1">{item.name}</p>
+            <p className="line-clamp-2 text-link text-sm mt-1">{item.artist}</p>
           </div>
         ))}
       </ul>
@@ -84,4 +73,4 @@ function AllTrendingSong() {
   );
 }
 
-export default AllTrendingSong;
+export default SongsList;

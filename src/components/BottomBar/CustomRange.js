@@ -1,5 +1,5 @@
-import {getTrackBackground, Range} from "react-range";
 import React from 'react'
+import {getTrackBackground, Range} from "react-range";
 
 function CustomRange({ value, step, min, max, onChange }) {
     return (
@@ -47,3 +47,4 @@ function CustomRange({ value, step, min, max, onChange }) {
 }
 
 export default CustomRange
+

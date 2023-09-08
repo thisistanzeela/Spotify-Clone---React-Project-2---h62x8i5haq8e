@@ -2,7 +2,7 @@ import React from 'react'
 function Collection() {
 	return (
 		<div>
-			burası kitaplık sayfası
+			Collections
 		</div>
 	)
 }

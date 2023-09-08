@@ -1,19 +1,18 @@
-import React from 'react'
-import Navigation from "./Navbar/Navigation";
-import Auth from "./Navbar/Auth";
-import { useMatch } from "react-router-dom"; // Use useMatch instead of useRouteMatch
-import Search from "./Navbar/Search";
+import React from "react";
+import Navigation from "./NavbarCompo/Navigation";
+import Auth from "./NavbarCompo/Auth";
+import SubscriptionModal from "./NavbarCompo/SubscriptionModal";
 
 function Navbar() {
-  const searchRoute = useMatch('/search'); // Use useMatch instead of useRouteMatch
-
   return (
     <nav className="h-[3.75rem] flex items-center justify-between px-8 relative z-10">
-      <Navigation />
-
-      {searchRoute && <Search />}
-
-      <Auth />
+      <div className="flex items-center">
+        <Navigation />
+      </div>
+      <div className="flex items-center">
+        <SubscriptionModal />
+        <Auth />
+      </div>
     </nav>
   );
 }

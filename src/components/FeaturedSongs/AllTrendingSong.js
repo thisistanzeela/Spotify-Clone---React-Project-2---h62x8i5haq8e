@@ -1,23 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { fetchSoulSootherSong} from "./SoulSootherApi";
+import { fetchTrendingSongs } from "./featuredApi";
 import { useDispatch, useSelector } from "react-redux";
-import { setCurrent } from "../stores/player";
-import { Icon } from "../Icons";
+import { setCurrent } from "../../stores/player";
+import { Icon } from "../../Icons";
 
-function SoulSoother() {
-  const [allSongs, setAllSongs] = useState([]);
+function AllTrendingSongs({ title, fetchTrendingData, limit }) {
+  const [trendingSongs, setTrendingSongs] = useState([]);
 
-  console.log("allSongs=" + allSongs);
   const dispatch = useDispatch();
   const { current, playing, controls } = useSelector((state) => state.player);
 
   useEffect(() => {
-    // Fetch all trending songs when the component mounts
-    fetchSoulSootherSong().then((data) => {
-      setAllSongs(data);
-      console.log("setAllSongs=" + data);
+    // Fetch trending songs when the component mounts
+    fetchTrendingSongs().then((data) => {
+      setTrendingSongs(data);
     });
-  }, []);
+  }, [fetchTrendingData]);
 
   const imageStyle = (item) => {
     switch (item.type) {
@@ -46,15 +44,16 @@ function SoulSoother() {
 
   return (
     <div>
-      <h1 className="text-2xl text-white font-semibold tracking-tight hover:underline">
-        Songs
+      <h1 className="text-2xl text-white font-semibold tracking-tight" >
+        {title}
       </h1>
 
       <ul className="grid grid-cols-5 gap-4 gap-x-4">
-        {allSongs.map((item) => (
+        {trendingSongs.slice(0, limit).map((item) => (
           <div
             key={item.id}
-            className="bg-footer p-4 rounded hover:bg-active group"
+            className="bg-footer p-4 m-4 rounded hover:bg-active group"
+            style={{ margin: "10px" }}
           >
             <div className="pt-[100%] relative mb-4">
               <img
@@ -78,7 +77,8 @@ function SoulSoother() {
             <h6 className="overflow-hidden overflow-ellipsis whitespace-nowrap text-base font-semibold">
               {item.title}
             </h6>
-            <p className="line-clamp-2 text-link text-sm mt-1">{item.name}</p>
+            <p className="line-clamp-2 text-link text-sm mt-1 ">{item.name}</p>
+            <p className="line-clamp-2 text-link text-sm">{item.artist}</p>
           </div>
         ))}
       </ul>
@@ -86,4 +86,4 @@ function SoulSoother() {
   );
 }
 
-export default SoulSoother;
+export default AllTrendingSongs;

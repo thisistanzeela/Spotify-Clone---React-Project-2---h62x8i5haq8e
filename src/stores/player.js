@@ -34,3 +34,6 @@ export const {
 } = playerSlice.actions
 
 export default playerSlice.reducer
+
+
+playerSlice.jsc
