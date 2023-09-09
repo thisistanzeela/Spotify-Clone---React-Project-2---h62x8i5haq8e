@@ -15,7 +15,7 @@ export async function fetchSongs() {
 
     const songData = response.data.data;
 
-    console.log(` All songs, ${JSON.stringify(songData)}`);
+    // console.log(` All songs, ${JSON.stringify(songData)}`);
 
     if (Array.isArray(songData)) {
       return songData.map((item) => ({
@@ -69,11 +69,6 @@ export async function fetchSongs() {
 //     return [];
 //   }
 // }
-
-
-
-
-
 
 // import React, { useState } from "react";
 // import { Link } from "react-router-dom";
@@ -450,7 +445,7 @@ export async function fetchSongs() {
 //           alignItems:"center"}}>
 //         <button
 //             type="submit"
-           
+
 //           >
 //             Sign up
 //           </button>

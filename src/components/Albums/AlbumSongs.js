@@ -107,19 +107,32 @@
 
 // export default AlbumSongs;
 
-
-
-
-
-import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { fetchSongsByAlbumId } from './AlbumApi';
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { setCurrent } from "../../stores/player";
+import { fetchSongsByAlbumId } from "./AlbumApi";
 // import Icon from '../../Icons';
 
 function AlbumSongs() {
   const { albumId } = useParams();
   const [albumSongs, setAlbumSongs] = useState([]);
-  const [current, setCurrent] = useState(null);
+  // const [current, setCurrent] = useState(null);
+
+  const dispatch = useDispatch();
+  const { current, playing, controls } = useSelector((state) => state.player);
+
+  const updateCurrent = (item) => {
+    if (current.id === item.id) {
+      if (playing) {
+        controls.pause();
+      } else {
+        controls.play();
+      }
+    } else {
+      dispatch(setCurrent(item));
+    }
+  };
 
   useEffect(() => {
     let isMounted = true;
@@ -131,7 +144,7 @@ function AlbumSongs() {
           setAlbumSongs(data);
         }
       } catch (error) {
-        console.error('Error fetching songs:', error);
+        console.error("Error fetching songs:", error);
       }
     }
 
@@ -144,18 +157,16 @@ function AlbumSongs() {
 
   const imageStyle = (item) => {
     switch (item.type) {
-      case 'artist':
-        return 'rounded-full';
+      case "artist":
+        return "rounded-full";
 
-      case 'podcast':
-        return 'rounded-xl';
+      case "podcast":
+        return "rounded-xl";
 
       default:
-        return 'rounded';
+        return "rounded";
     }
   };
-
- 
 
   return (
     <div>
@@ -181,10 +192,10 @@ function AlbumSongs() {
                 onClick={() => updateCurrent(item)}
                 className={`w-10 h-10 rounded-full bg-primary absolute group-hover:flex group-focus:flex bottom-2 right-2 items-center justify-center
                  ${
-                  current && current.id === item.id && playing
-                    ? 'flex'
-                    : 'hidden'
-                }`}
+                   current && current.id === item.id && playing
+                     ? "flex"
+                     : "hidden"
+                 }`}
               >
                 {/* <Icon
                   name={
