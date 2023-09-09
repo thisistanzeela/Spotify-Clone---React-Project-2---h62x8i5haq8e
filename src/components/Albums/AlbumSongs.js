@@ -186,14 +186,14 @@ function AlbumSongs() {
                     : 'hidden'
                 }`}
               >
-                {/* <Icon
+                <Icon
                   name={
                     current && current.id === item.id && playing
                       ? 'pause'
                       : 'play'
                   }
                   size={16}
-                /> */}
+                />
               </button>
             </div>
             <h6 className="overflow-hidden overflow-ellipsis whitespace-nowrap text-base font-semibold">

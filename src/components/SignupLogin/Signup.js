@@ -101,7 +101,7 @@ function SignupForm({ isLoggedIn }) {
       if (response.ok) {
         // Check if the response indicates success (it might have a different success criteria)
         if (data.success) {
-          toast.success("Signup successful! Welcome to Spotify.");
+          showWarningMessage("Signup successful! Welcome to Spotify.");
           // Optionally, we can perform additional actions here, such as redirecting the user.
         } else {
           showWarningMessage("Signup Failed");
@@ -133,7 +133,7 @@ function SignupForm({ isLoggedIn }) {
       {showWarning && (
         <div>
           {warningMessage}
-          <button onClick={handleWarningClose}>Close</button>
+          <button style={{marginLeft:"10px"}} onClick={handleWarningClose}>Close</button>
         </div>
       )}
       <div
