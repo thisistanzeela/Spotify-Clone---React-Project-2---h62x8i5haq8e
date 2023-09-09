@@ -20,7 +20,7 @@ function Auth() {
         <span>Sign up</span>
       </button>
       </Link>
-      <Link to="/login-Page">
+      {/* <Link to="/login-Page">
       <button
         style={{ marginLeft: "10px", padding: "22px 18px", fontSize: "16px" }}
         className={`flex items-center h-8 rounded-3xl pr-2 ${
@@ -30,7 +30,7 @@ function Auth() {
         <span className="text-sm mr-2">{user.name}</span>
         <span style={{  borderRadius: "22px" }}>Log in</span>
       </button>
-      </Link>
+      </Link> */}
     </>
   );
 }
