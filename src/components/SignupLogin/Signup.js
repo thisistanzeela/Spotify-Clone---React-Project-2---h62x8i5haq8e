@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-function SignupForm() {
+function SignupForm({ isLoggedIn }) {
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    profileName: "",
     birthYear: "",
     birthMonth: "",
     birthDay: "",
@@ -13,6 +10,9 @@ function SignupForm() {
     receiveMarketingMessages: false,
     shareDataWithProviders: false,
   });
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [showWarning, setShowWarning] = useState(false);
   const [warningMessage, setWarningMessage] = useState("");
 
@@ -22,6 +22,19 @@ function SignupForm() {
       ...prevData,
       [name]: type === "checkbox" ? checked : value,
     }));
+  };
+
+
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value);
+  };
+
+  const handleEmailChange = (event) => {
+    setEmail(event.target.value);
+  };
+
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
   };
   const handleWarningClose = () => {
     setShowWarning(false);
@@ -34,11 +47,12 @@ function SignupForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     // Validation checks
     if (
-      formData.email === "" ||
-      formData.password === "" ||
-      formData.profileName === "" ||
+      email === "" ||
+      password === "" ||
+      username === "" ||
       formData.birthYear === "" ||
       formData.birthMonth === "" ||
       formData.birthDay === ""
@@ -46,11 +60,28 @@ function SignupForm() {
       showWarningMessage("Fields cannot be empty");
       return;
     }
+    
+    if (!email.includes("@") || !email.includes(".")) {
+      showWarningMessage("Invalid email address");
+      return;
+    }
+  
+
+    if (
+      !password.match(
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/
+      )
+    ) {
+      showWarningMessage(
+        "Password must be at least 6 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special symbol"
+      );
+      return;
+    }
 
     try {
-      // API call to sign up user
-      const apiUrl = "https://academics.newtonschool.co/api/v1/user/signup";
-      const appType =  'music';
+      const apiUrl = 'https://academics.newtonschool.co/api/v1/user/signup';
+      const appType = "music";
+
       const response = await fetch(apiUrl, {
         method: "POST",
         headers: {
@@ -65,31 +96,42 @@ function SignupForm() {
         }),
       });
 
+      const data = await response.json();
+
       if (response.ok) {
-        showWarningMessage("Signup successful! Welcome to Spotify.");
+        // Check if the response indicates success (it might have a different success criteria)
+        if (data.success) {
+          toast.success("Signup successful! Welcome to Spotify.");
+          // Optionally, we can perform additional actions here, such as redirecting the user.
+        } else {
+          showWarningMessage("Signup Failed");
+        }
       } else {
-        showWarningMessage("Signup Failed");
+        // Handle non-2xx HTTP error responses
+        showWarningMessage(data.message || "Signup Failed");
       }
     } catch (error) {
+      // Handle network errors or other exceptions
+      console.error("Error:", error);
       showWarningMessage("Internal server problem. Please try again later.");
     }
   };
-
   return (
     <div id="spotify-login-page-container">
-      {showWarning && (
+
+{isLoggedIn && (
         <div
           style={{
-            // background: "white",
             width: "100vw",
             height: "100vh",
-            // display: "flex",
-            // flexDirection: "column",
-            // justifyContent: "center",
-            // alignItems: "center",
-            // color: "black",
           }}
         >
+          <p>Please log in or sign up to access the music player.</p>
+          <Link to="/login-Page">Log in</Link>
+        </div>
+      )}
+      {showWarning && (
+        <div>
           {warningMessage}
           <button onClick={handleWarningClose}>Close</button>
         </div>
@@ -146,6 +188,7 @@ function SignupForm() {
           onSubmit={handleSubmit}
         >
           {" "}
+          
           <label
             style={{
               fontSize: "14px",
@@ -156,11 +199,11 @@ function SignupForm() {
             What’s your email address?
           </label>
           <input
-            type="email"
-            name="email"
-            value={formData.email}
-            onChange={handleChange}
-            required
+             type="email"
+             name="email"
+             value={email}
+             onChange={handleEmailChange} 
+            // required
             style={{
               padding: "10px",
               width: "28vw",
@@ -181,11 +224,11 @@ function SignupForm() {
             Create a password{" "}
           </label>
           <input
-            type="password"
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            required
+             type="password"
+             name="password"
+             value={password}
+             onChange={handlePasswordChange}
+            // required
             style={{
               padding: "10px",
               width: "28vw",
@@ -206,11 +249,11 @@ function SignupForm() {
             What should we call you?
           </label>
           <input
-            type="text"
-            name="profileName"
-            value={formData.profileName}
-            onChange={handleChange}
-            required
+             type="text"
+             name="name"
+             value={username}
+             onChange={handleUsernameChange }
+            // required
             style={{
               padding: "10px",
               width: "28vw",
@@ -234,7 +277,7 @@ function SignupForm() {
                 name="birthYear"
                 value={formData.birthYear}
                 onChange={handleChange}
-                required
+                // required
                 style={{
                   width: "32vw",
                   height: "40px",
@@ -260,7 +303,7 @@ function SignupForm() {
                 name="birthMonth"
                 value={formData.birthMonth}
                 onChange={handleChange}
-                required
+                // required
                 style={{
                   width: "60vw",
                   height: "40px",
@@ -289,7 +332,7 @@ function SignupForm() {
                 name="birthDay"
                 value={formData.birthDay}
                 onChange={handleChange}
-                required
+                // required
                 style={{
                   width: "32vw",
                   height: "40px",
@@ -443,6 +486,7 @@ function SignupForm() {
               marginBottom: "2px",
               fontWeight: "500",
               marginTop: "20px",width: "32vw",
+              // required
             }}
           >
             {" "}

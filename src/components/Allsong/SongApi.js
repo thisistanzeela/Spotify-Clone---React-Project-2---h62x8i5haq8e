@@ -450,16 +450,7 @@ export async function fetchSongs() {
 //           alignItems:"center"}}>
 //         <button
 //             type="submit"
-//             style={{
-//               backgroundColor: "#1db954",
-//               color: "black",
-//               border: "none",
-//               borderRadius: "50px",
-//               padding: "10px 40px",
-//               cursor: "pointer",
-//               marginTop: "20px",
-//               fontWeight:"bold"
-//             }}
+           
 //           >
 //             Sign up
 //           </button>
