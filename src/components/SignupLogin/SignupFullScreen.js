@@ -1,6 +1,6 @@
 import React from 'react';
 import { Icon } from '../../Icons';
-import Singup from './Signup';
+import SignupForm from './Signup'; // Import the SignupForm component
 import { useNavigate } from 'react-router-dom';
 
 function LoginFullScreen() {
@@ -20,10 +20,14 @@ function LoginFullScreen() {
   };
 
   const modalStyle = {
-    width: '100%',
-    height: '100%',
-    background: '#fff',
     color: 'black',
+    background: '#fff',
+    padding: '20px', 
+    borderRadius: '5px',
+    boxShadow: '0 0 10px rgba(0, 0, 0, 0.2)',
+    position: 'relative',
+    overflowY: 'auto', 
+    maxHeight: '100vh',
   };
 
   const closeButtonStyle = {
@@ -41,7 +45,7 @@ function LoginFullScreen() {
         <button style={closeButtonStyle} className="close-button" onClick={handleGoBack}>
           <Icon name="cross" size={20} />
         </button>
-        <Singup />
+        <SignupForm  />
       </div>
     </div>
   );

@@ -1,9 +1,11 @@
-import axios from "axios";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { useAuth } from "../AuthContext"; // Import the useAuth hook
+import axios from "axios";
 import { toast } from "react-toastify";
 
-function SignupForm({ isLoggedIn }) {
+function SignupForm() {
+  const { isLoggedIn } = useAuth();
   const [formData, setFormData] = useState({
     birthYear: "",
     birthMonth: "",
@@ -60,12 +62,12 @@ function SignupForm({ isLoggedIn }) {
       formData.birthMonth === "" ||
       formData.birthDay === ""
     ) {
-      showWarningMessage("Fields cannot be empty");
+      toast.error("Fields cannot be empty");
       return;
     }
 
     if (!email.includes("@") || !email.includes(".")) {
-      showWarningMessage("Invalid email address");
+      toast.error("Invalid email address");
       return;
     }
 
@@ -74,7 +76,7 @@ function SignupForm({ isLoggedIn }) {
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,}$/
       )
     ) {
-      showWarningMessage(
+      toast.error(
         "Password must be at least 6 characters long and contain at least one uppercase letter, one lowercase letter, one number, and one special symbol"
       );
       return;
@@ -103,34 +105,32 @@ function SignupForm({ isLoggedIn }) {
       };
 
       await axios.request(config);
+      setUser({ name: username });
+      console.log("User data set:", { name: username });
       toast.success("Signup successful! Welcome to Spotify.");
     } catch (error) {
       // Handle network errors or other exceptions
       showWarningMessage("Signup Failed");
       console.error("Error:", error);
-      // showWarningMessage("Internal server problem. Please try again later.");
     }
   };
 
   return (
     <div id="spotify-login-page-container">
-      {isLoggedIn && (
-        <div
-          style={{
-            width: "100vw",
-            height: "100vh",
-          }}
-        >
-          <p>Please log in or sign up to access the music player.</p>
-          <Link to="/login-Page">Log in</Link>
-        </div>
+      {isLoggedIn ? (
+        <p>You are already logged in as {username}.</p>
+      ) : (
+        // <div
+        //   style={{
+        //     width: "100vw",
+        //     height: "100vh",
+        //   }}
+        // >
+        //   <p>Please log in or sign up to access the music player.</p>
+        <Link to="/Signup-Page"></Link>
+        // </div>
       )}
-      {showWarning && (
-        <div>
-          {warningMessage}
-          <button onClick={handleWarningClose}>Close</button>
-        </div>
-      )}
+
       <div
         style={{
           display: "flex",
@@ -521,7 +521,7 @@ function SignupForm({ isLoggedIn }) {
             >
               Sign up
             </button>
-            <p style={{ fontSize: "14px", marginTop: "10px" }}>
+            <p style={{ fontSize: "16px", marginTop: "10px" }}>
               Have an account?{" "}
               <Link
                 to="/login-Page"
