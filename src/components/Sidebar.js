@@ -2,10 +2,7 @@ import React from 'react'
 import logo from "../img/logo.svg"
 import { Icon } from "../Icons"
 import Menu from "./Sidebar/Menu"
-// import Playlists from "./Sidebar/Playlists"
-// import DownloadApp from "./Sidebar/Playlists"
-// import {useSelector} from "react-redux";
-// import SidebarCover from "./Sidebar/SidebarCover";
+import { Link } from "react-router-dom";
 
 function Sidebar() {
 
@@ -22,15 +19,16 @@ function Sidebar() {
 
 			<nav className="mt-6">
 				<ul>
-					
+					<Link to="/playlist" >
 					<li>
 						<a href="#" className="py-2 px-6 flex items-center group text-sm text-link font-semibold hover:text-white">
 							<span className="w-6 h-6 flex items-center justify-center mr-4 bg-gradient-to-br from-purple-700 text-white rounded-sm to-blue-300 opacity-70 group-hover:opacity-100">
 								<Icon name="heartFilled" size={12} />
 							</span>
-							Liked Songs
+							Playlist
 						</a>
 					</li>
+					</Link>
 				</ul>
 			</nav>
 

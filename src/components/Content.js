@@ -23,6 +23,8 @@ import Signup from '../components/SignupLogin/Signup';
 import LoginFullScreen from "./SignupLogin/LoginFullScreen";
 import SignupFullScreen from './SignupLogin/SignupFullScreen'
 import UpdatePasswordMain from "./SignupLogin/UpdatefullScreen";
+import Playlist from "./Playlist";
+
 
 function Content() {
   return (
@@ -50,7 +52,7 @@ function Content() {
           <Route path="/login-Page" element={<LoginFullScreen />} />
           <Route path="/Signup-Page" element={<SignupFullScreen />} />
           <Route path="/Update-Password" element={<UpdatePasswordMain />} />
-      
+      <Route path="/playlist" element={<Playlist />} />
       
         </Routes>
       </div>

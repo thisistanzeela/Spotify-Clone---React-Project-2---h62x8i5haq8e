@@ -6,5 +6,9 @@ module.exports = {
   },
   plugins: [],
 
+  
+  variants: {},
+  purge: [],
+  darkMode: false,
 }
 
