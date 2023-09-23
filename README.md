@@ -1,20 +1,66 @@
-# boilerplate-react-functional-public
+# Spotify Clone
 
-In this app we will be making a Word and Character counter app.
-First there needs to be a <code>textarea</code> element which will take the input
-from user.
+This project is a Spotify clone built using HTML, CSS, JavaScript, and React. It replicates the Spotify music streaming service, allowing users to browse and listen to music, create playlists, and enjoy a music player component.
 
-Below that element, create 2 divs with id="word-counter" and id="char-counter" respectively.
-#word-counter will show the number of words(empty space is not considered a word) and #char-counter will show the number of characters typed.
+## Project Link
+[Visit the hosted website](https://spotify-clone-aoty.onrender.com/)
 
-Also make an input with id="char-limit-input" which takes a number which is the limit of characters we can type in.
-By default char limit should be 50.
+## Table of Contents
 
-And the last input should be a slider input(with id ="fontSize-input") for taking the font size, default and min value should be 16px and max would be 32px.
+- [Tech Stack](#tech-stack)
+- [Prerequisites](#prerequisites)
+- [Project Overview](#project-overview)
+- [Features](#features)
+- [Setup](#setup)
 
-Apply the fontSize property to the textarea element.
+## Tech Stack
 
+- HTML
+- CSS
+- JavaScript
+- React
 
+## Prerequisites
 
-Demo video:-
-<video src="https://d3dyfaf3iutrxo.cloudfront.net/general/upload/e449406acecb4a1186ae9cc77a55933f.mp4" controls autoplay muted>
+Before you begin, ensure you have the following prerequisites:
+
+- Node.js and npm installed
+- Knowledge of HTML, CSS, JavaScript, and React
+- [Postman](https://www.postman.com/) for testing APIs
+
+## Project Overview
+
+This project is a Spotify clone that aims to replicate the core features of the Spotify music streaming service. It includes the following checkpoints:
+
+### Project Checkpoints
+
+1. **Set up the project and UI design**: The initial setup of the project and the creation of the user interface, including the Navbar.
+
+2. **Home Page and Featured Music**: Implementation of the home page where users can discover featured music. Integration of a music player component.
+
+3. **Browse and Search Music**: Development of the functionality to browse and search for music. Implementation of song and album details pages.
+
+4. **Register and Login**: User registration and login functionality. Ability to mark songs as favorites or liked songs.
+
+5. **Add Subscription Modal**: Integration of a subscription modal for premium features. Addition of a footer to the application.
+
+## Setup
+
+To run the Spotify Clone locally, follow these steps:
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/thisistanzeela/Spotify-Clone---React-Project-2---h62x8i5haq8e.git
+
+2. Navigate to the project directory:
+   ```bash
+   cd spotify-clone
+
+3. Install the dependencies:
+   ```bash
+   npm install
+   
+4. Start the development server:
+   ```bash
+   npm start
+
